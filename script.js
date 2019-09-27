@@ -160,13 +160,14 @@ var inputHappened = function(currentInput){
             player.currentTurn = 0;
             console.log("Turn start!")
             //generate target turns to complete task
-            player.targetTurn = Math.floor(Math.random()*hogwartsCastle.length);
+            //min number of turns is 2
+            player.targetTurn = Math.floor(Math.random()*hogwartsCastle.length) + 2;
 
             //inform player of target & turns
             input.value = "";
             lastInput = "Select where you wish to go.";
             input.placeholder = lastInput;
-            lastOutput = `Please report to Professor ${player.target} of ${player.house.name} House.\nYou are now in the Great Hall.`;
+            lastOutput = `Please report to Professor ${player.target} of ${player.house.name} House.\nYou have ${player.targetTurn} turns to complete your task.\nYou are now in the Great Hall.`;
             return lastOutput;
 
         //repeat if invalid
