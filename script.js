@@ -176,8 +176,16 @@ var inputHappened = function(currentInput){
             input.placeholder = lastInput;
             return lastOutput;
         }
+
         break;
 
+    //see where player wants to go
+    case "findProfessor":
+        console.log("Currently finding Professor");
+
+        //remove welcome screen
+        var hideWelcome = document.getElementById("welcome");
+        hideWelcome.classList.add("hide");
     }
 }
 

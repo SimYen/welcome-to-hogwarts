@@ -9,3 +9,7 @@
 #output{
   background-color:pink;
 }
+
+.hide {
+	display: none;
+}
