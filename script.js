@@ -6,6 +6,17 @@ Welcome to Hogwarts
 Ask player which House to be sorted into, after which player needs to find the House Head within Hogwarts Castle.
 */
 
+//display function
+var display = function( data ){
+  var displayElement = document.querySelector('#output');
+
+  // get rid of the entire contents
+  displayElement.innerHTML = "";
+
+  // put the data into the div
+  output.innerText = data;
+};
+
 //for easy update of display message
 const input = document.getElementById("input");
 
@@ -53,7 +64,7 @@ DOM room in 3x3 by randomize room selected from array
 (have to ensure all rooms DOM and no repeat...)
 */
 
-const hogwartsCastle = [
+var hogwartsCastle = [
     // [
     //     { location: "Hufflepuff House",
     //       level: 0,
@@ -70,16 +81,19 @@ const hogwartsCastle = [
     // ],
     // [
         { location: "Great Hall",
-          level: 1,
-          professor: "Dumbledore"
+          professor: "Dumbledore",
+          roomImg: "image/great-hall.jpg",
+          profImg: "image/dumbledore.jpg"
         },
         { location: "Transfiguration Classroom",
-          level: 1,
-          professor: "McGonagall"
+          professor: "McGonagall",
+          roomImg: "image/transfiguration.jpeg",
+          profImg: "image/mcgonagall.jpg"
         },
         { location: "Herbology Classroom",
-          level: 1,
-          professor: "Sprout"
+          professor: "Sprout",
+          roomImg: "image/herbology.jpeg",
+          profImg: "image/sprout.jpg"
         }
     // ],
     // [
@@ -97,6 +111,27 @@ const hogwartsCastle = [
     //     }
     // ]
 ];
+
+//DOM gameBoard
+function createHogwarts() {
+    var castle = document.createElement("div");
+    castle.id = "hogwarts";
+
+    //create rooms
+    for ( var i = 0; i < hogwartsCastle.length; i++ ) {
+        var map = document.createElement("div");
+        castle.appendChild(map);
+
+        var room = document.createElement("img");
+        room.id = "room" + i;
+        room.src = hogwartsCastle[i].roomImg;
+        castle.appendChild(room);
+    }
+
+    document.body.appendChild(castle);
+
+}
+
 
 //to track progress of game
 var gameCounter = 0;
@@ -165,7 +200,7 @@ var inputHappened = function(currentInput){
 
             //inform player of target & turns
             input.value = "";
-            lastInput = "Select where you wish to go.";
+            lastInput = "Enter YES to start";
             input.placeholder = lastInput;
             lastOutput = `Please report to Professor ${player.target} of ${player.house.name} House.\nYou have ${player.targetTurn} turns to complete your task.\nYou are now in the Great Hall.`;
             return lastOutput;
@@ -181,21 +216,14 @@ var inputHappened = function(currentInput){
 
     //see where player wants to go
     case "findProfessor":
-        console.log("Currently finding Professor");
+        console.log("Currently finding professor");
 
         //remove welcome screen
         var hideWelcome = document.getElementById("welcome");
         hideWelcome.classList.add("hide");
+
+        //create gameBoard
+        createHogwarts();
+
     }
 }
-
-//display function
-var display = function( data ){
-  var displayElement = document.querySelector('#output');
-
-  // get rid of the entire contents
-  displayElement.innerHTML = "";
-
-  // put the data into the div
-  output.innerText = data;
-};
