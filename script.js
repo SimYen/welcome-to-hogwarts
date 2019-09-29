@@ -115,52 +115,6 @@ var hogwartsCastle = [
     // ]
 ]
 
-//reveal room when clicked
-//check if target is found
-//else add 1 turn
-function revealRoom() {
-    console.log(this);
-    this.src = hogwartsCastle[this.id].roomImg;
-
-    if ( player.target === hogwartsCastle[this.id].professor ) {
-        console.log("You successfully found Professor " + player.target +"!");
-        player.currentTurn = 0;
-    } else {
-        player.currentTurn++;
-        if ( player.currentTurn === player.targetTurn ) {
-            console.log("Sorry, you were late reporting to Professor " + player.target + ".\nYou got detention for tardiness.");
-        } else {
-            console.log("Professor " + player.target + " is not in " + hogwartsCastle[this.id].location + ".\nYou have " + (player.targetTurn - player.currentTurn) + " turn left.");
-        }
-    }
-
-}
-
-//DOM gameBoard
-function createHogwarts(event) {
-    var castle = document.createElement("div");
-    castle.id = "hogwarts";
-
-    //create castle div to contain room divs
-    for ( var i = 0; i < hogwartsCastle.length; i++ ) {
-        var map = document.createElement("div");
-        castle.appendChild(map);
-
-        //create display for rooms
-        //how to reveal Great Hall from the start?
-        var room = document.createElement("img");
-        room.id = i;
-        room.src = "image/chocfrog.jpg";
-        room.addEventListener("click", revealRoom);
-
-        castle.appendChild(room);
-    }
-
-    document.body.appendChild(castle);
-
-}
-
-
 //to track progress of game
 var gameCounter = 0;
 
@@ -171,9 +125,8 @@ var progressGame = function() {
     console.log( "Current game stage: " + gameProgress[gameCounter]);
 }
 
-//start game by requesting player's name
-alert("Welcome to Hogwarts. What's your name?");
-input.placeholder = "Enter name";
+//start game by crediting copyrights
+alert("This is based on Ⓒ J.K. Rowling's Wizarding World.\nCredit for images used belongs to their illustrators.");
 
 var inputHappened = function(currentInput){
   console.log( currentInput );
@@ -254,4 +207,52 @@ var inputHappened = function(currentInput){
         createHogwarts();
 
     }
+}
+
+//DOM gameBoard
+function createHogwarts(event) {
+    var castle = document.createElement("div");
+    castle.id = "hogwarts";
+    castle.classList.add("row");
+
+    //create castle div to contain room divs
+    for ( var i = 0; i < hogwartsCastle.length; i++ ) {
+        var map = document.createElement("div");
+        map.classList.add("col-4");
+
+        //create display for rooms
+        //how to reveal Great Hall from the start?
+        var room = document.createElement("img");
+        room.id = i;
+        room.src = "image/chocfrog.jpg";
+        room.classList.add("img-fluid");
+        room.addEventListener("click", revealRoom);
+        map.appendChild(room);
+
+        castle.appendChild(map);
+    }
+
+    document.body.appendChild(castle);
+
+}
+
+//reveal room when clicked
+//check if target is found
+//else add 1 turn
+function revealRoom() {
+    console.log(this);
+    this.src = hogwartsCastle[this.id].roomImg;
+
+    if ( player.target === hogwartsCastle[this.id].professor ) {
+        console.log("You successfully found Professor " + player.target +"!");
+        player.currentTurn = 0;
+    } else {
+        player.currentTurn++;
+        if ( player.currentTurn === player.targetTurn ) {
+            console.log("Sorry, you were late reporting to Professor " + player.target + ".\nYou got detention for tardiness.");
+        } else {
+            console.log("Professor " + player.target + " is not in " + hogwartsCastle[this.id].location + ".\nYou have " + (player.targetTurn - player.currentTurn) + " turn left.");
+        }
+    }
+
 }
