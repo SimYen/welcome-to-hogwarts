@@ -65,54 +65,51 @@ DOM room in 3x3 by randomize room selected from array
 */
 
 var hogwartsCastle = [
-    // [
-        { location: "Hufflepuff House",
-          professor: "Sprout",
-          roomImg: "image/hufflepuff.jpg",
-          profImg: "image/sprout.jpg"
-        },
-        { location: "Potions Classroom",
-          professor: "Snape",
-          roomImg: "image/potions.jpeg",
-          profImg: "image/snape.jpg"
-        },
-        { location: "Slytherin House",
-          professor: "Snape",
-          roomImg: "image/slytherin.jpg",
-          profImg: "image/snape.jpg"
-        },
-    // ],
-    // [
-        { location: "Great Hall",
-          professor: "Dumbledore",
-          roomImg: "image/great-hall.jpg",
-          profImg: "image/dumbledore.jpg"
-        },
-        { location: "Transfiguration Classroom",
-          professor: "McGonagall",
-          roomImg: "image/transfiguration.jpeg",
-          profImg: "image/mcgonagall.jpg"
-        },
-        { location: "Herbology Classroom",
-          professor: "Sprout",
-          roomImg: "image/herbology.jpeg",
-          profImg: "image/sprout.jpg"
-        }
-    // ],
-    // [
-    //     { location: "Gryffindor House",
-    //       level: 2,
-    //       professor: "McGonagall"
-    //     },
-    //     { location: "Ravenclaw House",
-    //       level: 2,
-    //       professor: "Filtwick"
-    //     },
-    //     { location: "Charms Classroom",
-    //       level: 2,
-    //       professor: "Filtwick"
-    //     }
-    // ]
+    { location: "Gryffindor House",
+      professor: "McGonagall",
+      roomImg: "image/gryffindor.jpg",
+      profImg: "image/mcgonagall.jpg"
+    },
+    { location: "Ravenclaw House",
+      professor: "Filtwick",
+      roomImg: "image/ravenclaw.jpg",
+      profImg: "image/filwick.jpg"
+    },
+    { location: "Charms Classroom",
+      professor: "Filtwick",
+      roomImg: "image/charms.jpeg",
+      profImg: "image/filtwick.jpg"
+    },
+    { location: "Great Hall",
+      professor: "Dumbledore",
+      roomImg: "image/great-hall.jpg",
+      profImg: "image/dumbledore.jpg"
+    },
+    { location: "Transfiguration Classroom",
+      professor: "McGonagall",
+      roomImg: "image/transfiguration.jpeg",
+      profImg: "image/mcgonagall.jpg"
+    },
+    { location: "Herbology Classroom",
+      professor: "Sprout",
+      roomImg: "image/herbology.jpeg",
+      profImg: "image/sprout.jpg"
+    },
+    { location: "Hufflepuff House",
+      professor: "Sprout",
+      roomImg: "image/hufflepuff.jpg",
+      profImg: "image/sprout.jpg"
+    },
+    { location: "Potions Classroom",
+      professor: "Snape",
+      roomImg: "image/potions.jpeg",
+      profImg: "image/snape.jpg"
+    },
+    { location: "Slytherin House",
+      professor: "Snape",
+      roomImg: "image/slytherin.jpg",
+      profImg: "image/snape.jpg"
+    }
 ]
 
 //to track progress of game
@@ -177,7 +174,7 @@ var inputHappened = function(currentInput){
             console.log("Turn start!")
             //generate target turns to complete task
             //min number of turns is 2
-            player.targetTurn = Math.floor(Math.random()*hogwartsCastle.length) + 2;
+            player.targetTurn = Math.floor(Math.random()*hogwartsCastle.length/2) + 2;
 
             //inform player of target & turns
             input.value = "";
@@ -201,7 +198,7 @@ var inputHappened = function(currentInput){
 
         //remove welcome screen
         var hideWelcome = document.getElementById("welcome");
-        hideWelcome.classList.add("hide");
+        hideWelcome.classList.add("d-none");
 
         //create gameBoard
         createHogwarts();
@@ -226,6 +223,7 @@ function createHogwarts(event) {
         room.id = i;
         room.src = "image/chocfrog.jpg";
         room.classList.add("img-fluid");
+        room.classList.add("rounded");
         room.addEventListener("click", revealRoom);
         map.appendChild(room);
 
