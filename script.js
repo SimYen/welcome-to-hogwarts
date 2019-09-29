@@ -116,8 +116,20 @@ var hogwartsCastle = [
 //check if target is found
 //else add 1 turn
 function revealRoom() {
-    console.log(this)
+    console.log(this);
     this.src = hogwartsCastle[this.id].roomImg;
+
+    if ( player.target === hogwartsCastle[this.id].professor ) {
+        console.log("You successfully found Professor " + player.target +"!");
+        player.currentTurn = 0;
+    } else {
+        player.currentTurn++;
+        if ( player.currentTurn === player.targetTurn ) {
+            console.log("Sorry, you were late reporting to Professor " + player.target + ".\nYou got detention for tardiness.");
+        } else {
+            console.log("Professor " + player.target + " is not in " + hogwartsCastle[this.id].location + ".\nYou have " + (player.targetTurn - player.currentTurn) + " turn left.");
+        }
+    }
 
 }
 
@@ -132,6 +144,7 @@ function createHogwarts(event) {
         castle.appendChild(map);
 
         //create display for rooms
+        //how to reveal Great Hall from the start?
         var room = document.createElement("img");
         room.id = i;
         room.src = "image/chocfrog.jpg";
