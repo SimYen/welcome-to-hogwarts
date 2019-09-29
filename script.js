@@ -112,19 +112,30 @@ var hogwartsCastle = [
     // ]
 ];
 
+//reveal room when clicked
+//check if target is found
+//else add 1 turn
+function revealRoom() {
+    console.log(this)
+    this.src = hogwartsCastle[this.id].roomImg;
+
+}
+
 //DOM gameBoard
-function createHogwarts() {
+function createHogwarts(event) {
     var castle = document.createElement("div");
     castle.id = "hogwarts";
 
-    //create rooms
+    //create castle div to contain room divs
     for ( var i = 0; i < hogwartsCastle.length; i++ ) {
         var map = document.createElement("div");
         castle.appendChild(map);
 
+        //create display for rooms
         var room = document.createElement("img");
-        room.id = "room" + i;
-        room.src = hogwartsCastle[i].roomImg;
+        room.id = i;
+        room.src = "image/chocfrog.jpg";
+        room.addEventListener("click", revealRoom);
         castle.appendChild(room);
     }
 
