@@ -66,18 +66,21 @@ DOM room in 3x3 by randomize room selected from array
 
 var hogwartsCastle = [
     // [
-    //     { location: "Hufflepuff House",
-    //       level: 0,
-    //       professor: "Sprout"
-    //     },
-    //     { location: "Potions Classroom",
-    //       level: 0,
-    //       professor: "Snape"
-    //     },
-    //     { location: "Slytherin House",
-    //       level: 0,
-    //       professor: "Snape"
-    //     },
+        { location: "Hufflepuff House",
+          professor: "Sprout",
+          roomImg: "image/hufflepuff.jpg",
+          profImg: "image/sprout.jpg"
+        },
+        { location: "Potions Classroom",
+          professor: "Snape",
+          roomImg: "image/potions.jpeg",
+          profImg: "image/snape.jpg"
+        },
+        { location: "Slytherin House",
+          professor: "Snape",
+          roomImg: "image/slytherin.jpg",
+          profImg: "image/snape.jpg"
+        },
     // ],
     // [
         { location: "Great Hall",
@@ -110,7 +113,7 @@ var hogwartsCastle = [
     //       professor: "Filtwick"
     //     }
     // ]
-];
+]
 
 //reveal room when clicked
 //check if target is found
@@ -149,6 +152,7 @@ function createHogwarts(event) {
         room.id = i;
         room.src = "image/chocfrog.jpg";
         room.addEventListener("click", revealRoom);
+
         castle.appendChild(room);
     }
 
