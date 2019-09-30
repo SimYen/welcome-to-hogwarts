@@ -38,23 +38,19 @@ var player = {
 const housesOfHogwarts = [
     { name: "Gryffindor",
       head: "McGonagall",
-      founder: "Godric",
-      ghost: "Nearly Headless Nick"
+      found: false
     },
     { name: "Hufflepuff",
       head: "Sprout",
-      founder: "Helga",
-      ghost: "Fat Friar"
+      found: false
     },
     { name: "Ravenclaw",
       head: "Filtwick",
-      founder: "Rowena",
-      ghost: "Grey Lady"
+      found: false
     },
     { name: "Slytherin",
       head: "Snape",
-      founder: "Salazar",
-      ghost: "Bloody Baron"
+      found: false
     },
 ];
 
@@ -244,43 +240,8 @@ function revealRoom() {
     //show clicked room img
     this.src = hogwartsCastle[this.id].roomImg;
 
-    if ( player.target === hogwartsCastle[this.id].professor ) {
-
-        console.log("You successfully found Professor " + player.target +"!");
-
-        //hide gameboard
-        hideBoard();
-        //run room scene
-        roomScene(this.id);
-
-        player.currentTurn = 0;
-
-    } else {
-        player.currentTurn++;
-        if ( player.currentTurn === player.targetTurn ) {
-            console.log("Sorry, you were late reporting to Professor " + player.target + ".\nYou got detention for tardiness.");
-
-            hideBoard();
-
-            roomScene(this.id);
-            //show msg
-            //end game
-
-        } else {
-            console.log("Professor " + player.target + " is not in " + hogwartsCastle[this.id].location + ".\nYou have " + (player.targetTurn - player.currentTurn) + " turn left.");
-
-
-            //hide gameboard
-            hideBoard();
-
-            roomScene(this.id);
-            //roomScene
-            //show msg
-            //remove roomScene
-            //unhide castle.
-
-        }
-    }
+    hideBoard();
+    roomScene(this.id);
 
 }
 
@@ -316,7 +277,7 @@ function roomScene( roomId ) {
         message2.appendChild(profName);
 
         var profMsg = document.createElement("p");
-        profMsg.innerHTML = "Work in progress...";
+        profMsg.innerHTML = statement( roomId );
         message2.appendChild(profMsg);
 
         //dismiss button
@@ -342,7 +303,58 @@ function returnBoard() {
     showCastle.classList.remove("d-none");
 }
 
-        //function message to be shown
-        //get new target
+//check what message to show
+function statement( roomId ) {
+
+    if ( player.target === hogwartsCastle[roomId].professor ) {
+
+        console.log("You successfully found Professor " + player.target +"!");
+
+        //check which house to update
+        //update status to found
+        for ( var i = 0; i < housesOfHogwarts.length; i++) {
+            if ( player.target === housesOfHogwarts[i].head ) {
+                housesOfHogwarts[i].found = true;
+            }
+        }
+
+        player.targetsFound ++;
+        console.log("Number of Heads found: " + player.targetsFound);
+        //check if targetsFound === 4
         //(new) if all target found (i.e targetCount = 4),
-        //go to Great Hall for Dumbledore
+        //go to Great Hall for Dumbledore --> endGame
+
+        //get next target
+        //check which House head not yet found
+        function whichHead(house) {
+            return house.found === false;
+        }
+        var toFind = housesOfHogwarts.find(whichHead);
+        console.log(toFind);
+
+        player.target = toFind.head;
+
+
+        player.currentTurn = 0;
+        player.targetTurn = Math.floor(Math.random()*hogwartsCastle.length/2) + 2;
+
+        return `Your attendence is noted. Please proceed to report to Professor ${player.target}.\nYou have ${player.targetTurn} turns to complete your task.`;
+
+    } else {
+
+        //increment turns
+        player.currentTurn++;
+
+        //check if turns are up
+        //progress to end game
+        if ( player.currentTurn === player.targetTurn ) {
+            return ("Sorry, you were late reporting to Professor " + player.target + ".\nYou got detention for tardiness.");
+
+        } else {
+
+            return ("Professor " + player.target + " is not in " + hogwartsCastle[roomId].location + ".\nYou have " + (player.targetTurn - player.currentTurn) + " turn left.");
+
+        }
+    }
+
+}
