@@ -77,7 +77,7 @@ var hogwartsCastle = [
       roomImg: "image/charms.jpeg",
       profImg: "image/filtwick.jpg"
     },
-    { location: "Great Hall",
+    { location: "Great Hall",       //room id = 3
       professor: "Dumbledore",
       roomImg: "image/great-hall.jpg",
       profImg: "image/dumbledore.jpg"
@@ -112,7 +112,7 @@ var hogwartsCastle = [
 //to track progress of game
 var gameCounter = 0;
 
-var gameProgress = [ "getName", "getHouse", "findProfessor" ];
+var gameProgress = [ "getName", "getHouse", "findProfessor", "detention", "success" ];
 
 var progressGame = function() {
     gameCounter ++;
@@ -177,7 +177,7 @@ var inputHappened = function(currentInput){
             input.value = "";
             lastInput = "Enter YES to start";
             input.placeholder = lastInput;
-            lastOutput = `Please report to Professor ${player.target} of ${player.house.name} House.\nYou have ${player.targetTurn} turns to complete your task.\nYou are now in the Great Hall.`;
+            lastOutput = `Please report to Professor ${player.target} of ${player.house.name} House.\nYou have ${player.targetTurn} turns to complete your task.`;
             return lastOutput;
 
         //repeat if invalid
@@ -320,9 +320,19 @@ function statement( roomId ) {
 
         player.targetsFound ++;
         console.log("Number of Heads found: " + player.targetsFound);
-        //check if targetsFound === 4
+
         //(new) if all target found (i.e targetCount = 4),
         //go to Great Hall for Dumbledore --> endGame
+        if ( player.targetsFound >= housesOfHogwarts.length ) {
+            //go to Great Hall for Dumbledore --> endGame
+            var greatHall = document.getElementById("3")
+            greatHall.removeEventListener("click", revealRoom);
+            greatHall.addEventListener("click", welcomeAddress);
+            player.target = hogwartsCastle[3].professor
+            player.currentTurn = true;
+            player.targetTurn = true;
+            return `Please proceed to the Great Hall for the Welcoming Feast.`;
+        }
 
         //get next target
         //check which House head not yet found
@@ -334,11 +344,10 @@ function statement( roomId ) {
 
         player.target = toFind.head;
 
-
         player.currentTurn = 0;
         player.targetTurn = Math.floor(Math.random()*hogwartsCastle.length/2) + 2;
 
-        return `Your attendence is noted. Please proceed to report to Professor ${player.target}.\nYou have ${player.targetTurn} turns to complete your task.`;
+        return `Your attendence is noted. Please proceed to report to Professor ${player.target}.<br>You have ${player.targetTurn} turns to complete your task.`;
 
     } else {
 
@@ -348,13 +357,69 @@ function statement( roomId ) {
         //check if turns are up
         //progress to end game
         if ( player.currentTurn === player.targetTurn ) {
-            return ("Sorry, you were late reporting to Professor " + player.target + ".\nYou got detention for tardiness.");
+
+            setTimeout( function() { location.reload(); }, 3000 );
+
+            return ("Sorry, you were late reporting to Professor " + player.target + ".<br>You got detention for tardiness and miss the Welcome Feast.");
 
         } else {
 
-            return ("Professor " + player.target + " is not in " + hogwartsCastle[roomId].location + ".\nYou have " + (player.targetTurn - player.currentTurn) + " turn left.");
+            return ("Professor " + player.target + " is not in " + hogwartsCastle[roomId].location + ".<br>You have " + (player.targetTurn - player.currentTurn) + " turn left.");
 
         }
     }
 
+}
+
+//Game complete
+function welcomeAddress() {
+    hideBoard();
+    //DOM roomScene
+    console.log( "Room ID: " + this.id );
+    var roomScene = document.createElement("div");
+    roomScene.id = "roomScene";
+    roomScene.classList.add("row");
+
+    //show prof image
+    var message1 = document.createElement("div");
+    message1.classList.add("col-6");
+
+    var profFound = document.createElement("img");
+    profFound.src = hogwartsCastle[this.id].profImg;
+    profFound.classList.add("img-fluid");
+    profFound.classList.add("rounded");
+    message1.appendChild(profFound);
+    roomScene.appendChild(message1);
+
+    //show msg
+    var message2 = document.createElement("div");
+    message2.classList.add("col-6");
+
+    var profName = document.createElement("h3");
+    profName.innerHTML = `Professor ${hogwartsCastle[this.id].professor}:`;
+    message2.appendChild(profName);
+
+    var profMsg = document.createElement("p");
+    profMsg.innerHTML = "Before we begin our banquet, I would like to say a few words.\nAnd here they are: Nitwit! Blubber! Oddment! Tweak! Thank you.";
+    message2.appendChild(profMsg);
+
+    //reset game
+    var button = document.createElement("button");
+    button.type = "button";
+    button.classList.add("btn");
+    button.classList.add("btn-info");
+    button.innerHTML = "Use Time-Turner";
+    button.addEventListener("click", resetGame);
+    message2.appendChild(button);
+
+    roomScene.appendChild(message2);
+
+    var message = document.getElementById("messageBoard");
+    message.appendChild(roomScene);
+
+}
+
+//Time-Turner
+function resetGame() {
+    location.reload();
 }
