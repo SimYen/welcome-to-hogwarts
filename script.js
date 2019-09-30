@@ -240,7 +240,6 @@ function revealRoom() {
     //show clicked room img
     this.src = hogwartsCastle[this.id].roomImg;
 
-    hideBoard();
     roomScene(this.id);
 
 }
@@ -251,6 +250,10 @@ function hideBoard() {
 }
 
 function roomScene( roomId ) {
+
+        hideBoard();
+        var message = document.getElementById("messageBoard");
+
         //DOM roomScene
         console.log( "Room ID: " + roomId );
         var roomScene = document.createElement("div");
@@ -291,13 +294,13 @@ function roomScene( roomId ) {
 
         roomScene.appendChild(message2);
 
-        var message = document.getElementById("messageBoard");
         message.appendChild(roomScene);
 }
 
 function returnBoard() {
+    var message = document.getElementById("messageBoard");
     //clear messageBoard
-    messageBoard.innerHTML = "";
+    message.innerHTML = "";
 
     var showCastle = document.getElementById("hogwarts");
     showCastle.classList.remove("d-none");
@@ -355,12 +358,12 @@ function statement( roomId ) {
         player.currentTurn++;
 
         //check if turns are up
-        //progress to end game
+        //implement page reload
         if ( player.currentTurn === player.targetTurn ) {
 
-            setTimeout( function() { location.reload(); }, 3000 );
+            setTimeout( timeTurn, 5000 );
 
-            return ("Sorry, you were late reporting to Professor " + player.target + ".<br>You got detention for tardiness and miss the Welcome Feast.");
+            return ("Sorry, you are late reporting to Professor " + player.target + " and missed the Welcome Feast.");
 
         } else {
 
@@ -373,8 +376,11 @@ function statement( roomId ) {
 
 //Game complete
 function welcomeAddress() {
+
     hideBoard();
     //DOM roomScene
+    var message = document.getElementById("messageBoard");
+
     console.log( "Room ID: " + this.id );
     var roomScene = document.createElement("div");
     roomScene.id = "roomScene";
@@ -400,8 +406,60 @@ function welcomeAddress() {
     message2.appendChild(profName);
 
     var profMsg = document.createElement("p");
-    profMsg.innerHTML = "Before we begin our banquet, I would like to say a few words.\nAnd here they are: Nitwit! Blubber! Oddment! Tweak! Thank you.";
+    profMsg.innerHTML = "Before we begin our banquet, I would like to say a few words.<br>And here they are: Nitwit! Blubber! Oddment! Tweak!<br>Thank you.";
     message2.appendChild(profMsg);
+
+    //reset game
+    var button = document.createElement("button");
+    button.type = "button";
+    button.classList.add("btn");
+    button.classList.add("btn-info");
+    button.innerHTML = "Relive This Day";
+    button.addEventListener("click", timeTurn);
+    message2.appendChild(button);
+
+    roomScene.appendChild(message2);
+
+    message.appendChild(roomScene);
+
+}
+
+//Time-Turner
+function timeTurn() {
+
+    hideBoard();
+    //DOM roomScene
+    var message = document.getElementById("messageBoard");
+    //clear messageBoard
+    message.innerHTML = "";
+
+    //endScene
+    var roomScene = document.createElement("div");
+    roomScene.id = "roomScene";
+    roomScene.classList.add("row");
+
+    //show time-turner
+    var message1 = document.createElement("div");
+    message1.classList.add("col-6");
+
+    var timeTurner = document.createElement("img");
+    timeTurner.src = "image/timeturner.jpg";
+    timeTurner.classList.add("img-fluid");
+    timeTurner.classList.add("rounded");
+    message1.appendChild(timeTurner);
+    roomScene.appendChild(message1);
+
+    //show msg
+    var message2 = document.createElement("div");
+    message2.classList.add("col-6");
+
+    var itemName = document.createElement("h3");
+    itemName.innerHTML = `Time-Turner`;
+    message2.appendChild(itemName);
+
+    var itemMsg = document.createElement("p");
+    itemMsg.innerHTML = "I mark the hours, every one,<br>Nor have I yet outrun the Sun.<br>My use and value, unto you,<br>Are gauged by what you have to do.";
+    message2.appendChild(itemMsg);
 
     //reset game
     var button = document.createElement("button");
@@ -414,12 +472,10 @@ function welcomeAddress() {
 
     roomScene.appendChild(message2);
 
-    var message = document.getElementById("messageBoard");
     message.appendChild(roomScene);
 
 }
 
-//Time-Turner
 function resetGame() {
     location.reload();
 }
