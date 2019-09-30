@@ -309,14 +309,37 @@ function roomScene( roomId ) {
         var message2 = document.createElement("div");
         message2.classList.add("col-6");
 
-        var profMsg = document.createElement("h3");
-        profMsg.innerHTML = `Professor ${hogwartsCastle[roomId].professor}:`;
+        var profName = document.createElement("h3");
+        profName.innerHTML = `Professor ${hogwartsCastle[roomId].professor}:`;
+        message2.appendChild(profName);
+
+        var profMsg = document.createElement("p");
+        profMsg.innerHTML = "Work in progress...";
         message2.appendChild(profMsg);
+
+        //dismiss button
+        var button = document.createElement("button");
+        button.type = "button";
+        button.classList.add("btn");
+        button.classList.add("btn-info");
+        button.innerHTML = "OK";
+        button.addEventListener("click", returnCastle);
+        message2.appendChild(button);
+
         roomScene.appendChild(message2);
 
+        document.body.appendChild(roomScene);
+}
+
+function returnCastle() {
+    var removeRoom = document.getElementById("roomScene");
+    removeRoom.classList.add("d-none");
+
+    var showCastle = document.getElementById("hogwarts");
+    showCastle.classList.remove("d-none");
+}
+
+        //function message to be shown
         //get new target
         //(new) if all target found (i.e targetCount = 4),
         //go to Great Hall for Dumbledore
-        // roomScene.appendChild(messageBoard);
-        document.body.appendChild(roomScene);
-}
