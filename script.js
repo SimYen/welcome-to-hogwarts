@@ -73,7 +73,7 @@ var hogwartsCastle = [
     { location: "Ravenclaw House",
       professor: "Filtwick",
       roomImg: "image/ravenclaw.jpg",
-      profImg: "image/filwick.jpg"
+      profImg: "image/filtwick.jpg"
     },
     { location: "Charms Classroom",
       professor: "Filtwick",
@@ -248,28 +248,8 @@ function revealRoom() {
 
         //hide gameboard
         hideCastle();
-
-        //DOM roomScene
-        var roomScene = document.createElement("div");
-        roomScene.id = "roomScene";
-        roomScene.classList.add("row");
-
-        var messageBoard = document.createElement("div");
-        messageBoard.classList.add("col-6");
-
-        //show prof image
-        var profFound = document.createElement("img");
-        profFound.src = hogwartsCastle[this.id].profImg;
-        profFound.classList.add("img-fluid");
-        profFound.classList.add("rounded");
-        messageBoard.appendChild(profFound);
-
-        //show msg
-        //get new target
-        //(new) if all target found (i.e targetCount = 4),
-        //go to Great Hall for Dumbledore
-        roomScene.appendChild(messageBoard);
-        document.body.appendChild(roomScene);
+        //run room scene
+        roomScene(this.id);
 
         player.currentTurn = 0;
 
@@ -278,7 +258,9 @@ function revealRoom() {
         if ( player.currentTurn === player.targetTurn ) {
             console.log("Sorry, you were late reporting to Professor " + player.target + ".\nYou got detention for tardiness.");
 
-            //roomScene
+            hideCastle();
+
+            roomScene(this.id);
             //show msg
             //end game
 
@@ -289,6 +271,7 @@ function revealRoom() {
             //hide gameboard
             hideCastle();
 
+            roomScene(this.id);
             //roomScene
             //show msg
             //remove roomScene
@@ -302,4 +285,38 @@ function revealRoom() {
 function hideCastle() {
     var removeCastle = document.getElementById("hogwarts");
     removeCastle.classList.add("d-none");
+}
+
+function roomScene( roomId ) {
+        //DOM roomScene
+        console.log( roomId );
+        var roomScene = document.createElement("div");
+        roomScene.id = "roomScene";
+        roomScene.classList.add("row");
+
+        //show prof image
+        var message1 = document.createElement("div");
+        message1.classList.add("col-6");
+
+        var profFound = document.createElement("img");
+        profFound.src = hogwartsCastle[roomId].profImg;
+        profFound.classList.add("img-fluid");
+        profFound.classList.add("rounded");
+        message1.appendChild(profFound);
+        roomScene.appendChild(message1);
+
+        //show msg
+        var message2 = document.createElement("div");
+        message2.classList.add("col-6");
+
+        var profMsg = document.createElement("h3");
+        profMsg.innerHTML = `Professor ${hogwartsCastle[roomId].professor}:`;
+        message2.appendChild(profMsg);
+        roomScene.appendChild(message2);
+
+        //get new target
+        //(new) if all target found (i.e targetCount = 4),
+        //go to Great Hall for Dumbledore
+        // roomScene.appendChild(messageBoard);
+        document.body.appendChild(roomScene);
 }
