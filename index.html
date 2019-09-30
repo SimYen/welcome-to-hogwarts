@@ -10,21 +10,62 @@
     <title>Welcome to Hogwarts</title>
   </head>
   <body>
-    <div id="welcome" class="container-fluid">
-        <h3>Welcome to Hogwarts</h3>
-        <input class="starter" id="input" placeholder="Enter your name"/>
-        <div class="starter" id="output"></div>
+
+    <div id="welcome" class="container">
+        <img src = "image/crest.jpg" style="width: 40vw;">
+        <h1>Welcome to Hogwarts</h1>
+        <div id="input" class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">Enter Name</span>
+            </div>
+            <input type="text" class="form-control" placeholder="Your name" aria-label="Username" aria-describedby="basic-addon1">
+        </div>
     </div>
-    <div id="hogwarts" class="container"></div>
-    <div id="messageBoard" class="container"></div>
-    <script>
+
+    <div id="getHouse" class="container d-none">
+        <img src = "image/sorting.jpg" style="width: 40vw;">
+        <div id="whatHouse"></div>
+        <div id="houses" class="row">
+            <div class="col-12 col-md-3 card">
+                <img src="image/gryffindor.jpg" class="card-img-top img-fluid" alt="gryffindor">
+                <div class="card-body">
+                    <a id="gryffindor" class="btn btn-danger">Select</a>
+                    <p class="card-text">With a lion as its crest and Professor McGonagall at its head, Gryffindor is the house which most values the virtues of courage, bravery and determination</p>
+                </div>
+            </div>
+            <div class="col-12 col-md-3 card">
+                <img src="image/ravenclaw.jpg" class="card-img-top img-fluid" alt="ravenclaw">
+                <div class="card-body">
+                    <a id="ravenclaw" class="btn btn-primary">Select</a>
+                    <p class="card-text">Ravenclaws prize wit, learning, and wisdom. It's an ethos etched into founder Rowena Ravenclaw's diadem: '<i>wit beyond measure is man's greatest treasure</i>'</p>
+                </div>
+            </div>
+            <div class="col-12 col-md-3 card">
+                <img src="image/hufflepuff.jpg" class="card-img-top img-fluid" alt="hufflepuff">
+                <div class="card-body">
+                    <a id="hufflepuff" class="btn btn-warning">Select</a>
+                    <p class="card-text">Hufflepuffs value hard work, patience, loyalty, and fair play. The house has produced its share of great wizards – not least Newt Scamander, author of <i>Fantastic Beasts and Where to Find Them</i></p>
+                </div>
+            </div>
+            <div class="col-12 col-md-3 card">
+                <img src="image/slytherin.jpg" class="card-img-top img-fluid" alt="slytherin">
+                <div class="card-body">
+                    <a id="slytherin" class="btn btn-success">Select</a>
+                    <p class="card-text">Slytherin produces more than its share of Dark wizards, but also turns out leaders who are proud, ambitious and cunning. Merlin is one particularly famous Slytherin</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="hogwarts" class="container-fluid"></div>
+    <div id="messageBoard" class="container-fluid"></div>
+<!--     <script>
       document.querySelector('#input').addEventListener('change', function(event){
         var currentInput = event.target.value;
         var result = inputHappened(currentInput)
         display( result );
       });
     </script>
-    <script src="script.js" charset="utf-8"></script>
+ -->    <script src="script.js" charset="utf-8"></script>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
