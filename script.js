@@ -25,6 +25,7 @@ var player = {
     name: null,
     house: null,
     target: null,
+    targetsFound: null,
     gameProgress: null,
     currentLocation: null,
     currentTurn: null,
@@ -209,7 +210,7 @@ var inputHappened = function(currentInput){
 //DOM gameBoard
 function createHogwarts(event) {
     var castle = document.createElement("div");
-    castle.id = "hogwarts";
+    castle.id = "hogwartsCastle";
     castle.classList.add("row");
 
     //create castle div to contain room divs
@@ -230,7 +231,8 @@ function createHogwarts(event) {
         castle.appendChild(map);
     }
 
-    document.body.appendChild(castle);
+    var gameBoard = document.getElementById("hogwarts");
+    gameBoard.appendChild(castle);
 
 }
 
@@ -247,7 +249,7 @@ function revealRoom() {
         console.log("You successfully found Professor " + player.target +"!");
 
         //hide gameboard
-        hideCastle();
+        hideBoard();
         //run room scene
         roomScene(this.id);
 
@@ -258,7 +260,7 @@ function revealRoom() {
         if ( player.currentTurn === player.targetTurn ) {
             console.log("Sorry, you were late reporting to Professor " + player.target + ".\nYou got detention for tardiness.");
 
-            hideCastle();
+            hideBoard();
 
             roomScene(this.id);
             //show msg
@@ -269,7 +271,7 @@ function revealRoom() {
 
 
             //hide gameboard
-            hideCastle();
+            hideBoard();
 
             roomScene(this.id);
             //roomScene
@@ -282,14 +284,14 @@ function revealRoom() {
 
 }
 
-function hideCastle() {
+function hideBoard() {
     var removeCastle = document.getElementById("hogwarts");
     removeCastle.classList.add("d-none");
 }
 
 function roomScene( roomId ) {
         //DOM roomScene
-        console.log( roomId );
+        console.log( "Room ID: " + roomId );
         var roomScene = document.createElement("div");
         roomScene.id = "roomScene";
         roomScene.classList.add("row");
@@ -323,17 +325,18 @@ function roomScene( roomId ) {
         button.classList.add("btn");
         button.classList.add("btn-info");
         button.innerHTML = "OK";
-        button.addEventListener("click", returnCastle);
+        button.addEventListener("click", returnBoard);
         message2.appendChild(button);
 
         roomScene.appendChild(message2);
 
-        document.body.appendChild(roomScene);
+        var message = document.getElementById("messageBoard");
+        message.appendChild(roomScene);
 }
 
-function returnCastle() {
-    var removeRoom = document.getElementById("roomScene");
-    removeRoom.classList.add("d-none");
+function returnBoard() {
+    //clear messageBoard
+    messageBoard.innerHTML = "";
 
     var showCastle = document.getElementById("hogwarts");
     showCastle.classList.remove("d-none");
