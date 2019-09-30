@@ -123,7 +123,7 @@ var progressGame = function() {
 }
 
 //start game by crediting copyrights
-alert("This is based on Ⓒ J.K. Rowling's Wizarding World.\nCredit for images used belongs to their illustrators.");
+alert("This game is based on Ⓒ J.K. Rowling's Wizarding World.\nCredit for images used belongs to their illustrators.");
 
 var inputHappened = function(currentInput){
   console.log( currentInput );
@@ -166,7 +166,7 @@ var inputHappened = function(currentInput){
             console.log( "Finding: Professor " + player.target );
 
             //set default location to Great Hall
-            player.currentLocation = hogwartsCastle[0];
+            player.currentLocation = hogwartsCastle[3];
             console.log( "Current location: " + JSON.stringify(player.currentLocation) );
 
             //initialize turn count
@@ -239,18 +239,67 @@ function createHogwarts(event) {
 //else add 1 turn
 function revealRoom() {
     console.log(this);
+    //show clicked room img
     this.src = hogwartsCastle[this.id].roomImg;
 
     if ( player.target === hogwartsCastle[this.id].professor ) {
+
         console.log("You successfully found Professor " + player.target +"!");
+
+        //hide gameboard
+        hideCastle();
+
+        //DOM roomScene
+        var roomScene = document.createElement("div");
+        roomScene.id = "roomScene";
+        roomScene.classList.add("row");
+
+        var messageBoard = document.createElement("div");
+        messageBoard.classList.add("col-6");
+
+        //show prof image
+        var profFound = document.createElement("img");
+        profFound.src = hogwartsCastle[this.id].profImg;
+        profFound.classList.add("img-fluid");
+        profFound.classList.add("rounded");
+        messageBoard.appendChild(profFound);
+
+        //show msg
+        //get new target
+        //(new) if all target found (i.e targetCount = 4),
+        //go to Great Hall for Dumbledore
+        roomScene.appendChild(messageBoard);
+        document.body.appendChild(roomScene);
+
         player.currentTurn = 0;
+
     } else {
         player.currentTurn++;
         if ( player.currentTurn === player.targetTurn ) {
             console.log("Sorry, you were late reporting to Professor " + player.target + ".\nYou got detention for tardiness.");
+
+            //roomScene
+            //show msg
+            //end game
+
         } else {
             console.log("Professor " + player.target + " is not in " + hogwartsCastle[this.id].location + ".\nYou have " + (player.targetTurn - player.currentTurn) + " turn left.");
+
+
+            //hide gameboard
+            hideCastle();
+
+            //roomScene
+            //show msg
+            //remove roomScene
+            //unhide castle.
+
         }
     }
 
+}
+
+function hideCastle() {
+    var removeCastle = document.getElementById("hogwarts");
+    removeCastle.classList.add("d-none");
 }
