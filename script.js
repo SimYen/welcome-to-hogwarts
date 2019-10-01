@@ -344,6 +344,10 @@ function returnBoard() {
     //clear messageBoard
     message.innerHTML = "";
 
+    var refreshStats = document.getElementById("dashboard");
+    refreshStats.innerHTML = "";
+    stats();
+
     var showCastle = document.getElementById("hogwarts");
 
     //for flipped mode
