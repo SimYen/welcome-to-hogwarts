@@ -6,10 +6,8 @@ Welcome to Hogwarts
 Ask player which House to be sorted into, after which player needs to find the House Head within Hogwarts Castle.
 */
 
-//for easy update of display message
-const input = document.getElementById("input");
-
 //create object to store player details
+
 var player = {
     name: null,
     house: null,
@@ -19,11 +17,10 @@ var player = {
     currentLocation: null,
     currentTurn: null,
     targetTurn: null,
-    lastInput: null,
-    lastOutput: null,
 };
 
 //create object of House details
+
 const housesOfHogwarts = [
     { name: "Gryffindor",
       head: "McGonagall",
@@ -93,17 +90,8 @@ var hogwartsCastle = [
     }
 ]
 
-//to track progress of game
-var gameCounter = 0;
 
-var gameProgress = [ "getName", "getHouse", "findProfessor", "detention", "success" ];
-
-var progressGame = function() {
-    gameCounter ++;
-    console.log( "Current game stage: " + gameProgress[gameCounter]);
-}
-
-//start game by crediting copyrights
+//start by crediting copyrights
 alert("This game is based on Ⓒ J.K. Rowling's Wizarding World.\nCredit for images used belongs to their illustrators.");
 
 //get player's name
@@ -113,35 +101,14 @@ getName.addEventListener('change', function(event) {
         var result = inputHappened(currentInput)
     });
 
-// //display function
-// var display = function( data ){
-//   var displayElement = document.querySelector('#output');
-
-//   // get rid of the entire contents
-//   displayElement.innerHTML = "";
-
-//   // put the data into the div
-//   output.innerText = data;
-// };
-
 function inputHappened(currentInput) {
-  // console.log( currentInput );
 
     var hideWelcome = document.getElementById("welcome")
     hideWelcome.classList.add("d-none");
 
-  // //check if is new game
-  // switch (gameProgress[gameCounter]) {
-
-  //   //get name of player
-  //   case "getName":
-
     //store player name
     player.name = currentInput;
     console.log( "Player name: " + player.name );
-
-        // //increment game progress
-        // progressGame();
 
     //get player House selection
     var showHouses = document.getElementById("getHouse");
@@ -152,77 +119,86 @@ function inputHappened(currentInput) {
     getHouse.appendChild(askHouse);
 
     //add event listener
+    var select = document.getElementsByTagName("button");
+    console.log(select);
+
+    for ( var i=0; i<select.length; i++ ) {
+        select[i].addEventListener("click", mission);
+    }
 
     showHouses.classList.remove("d-none");
 
-        // //ask for House
-        // input.value = "";
-        // lastInput = "Enter House";
-        // input.placeholder = lastInput;
-        // lastOutput = `Hi, ${player.name}. What House are you in?\n1) Gryffindor\n2) Hufflepuff\n3) Ravenclaw\n4) Slytherin`;
-        // return lastOutput;
-        // break;
 }
 
-    // //get House of player
-    // case "getHouse":
+//get House of player
+function mission() {
 
-    //     //check if currentInput is valid selection
-    //     if (Number(currentInput) > 0 && Number(currentInput) < 5) {
-    //         //store player house
-    //         player.house = housesOfHogwarts[ Number(currentInput) - 1 ];
-    //         console.log( "Player House: " + JSON.stringify(player.house) );
+    var hideHouse = document.getElementById("getHouse");
+    hideHouse.classList.add("d-none")
 
-    //         //increment game progress
-    //         progressGame();
+    player.house = housesOfHogwarts[ this.value ];
+    console.log( "Player House: " + JSON.stringify(player.house) );
 
-    //         //set target to find
-    //         player.target = player.house.head;
-    //         console.log( "Finding: Professor " + player.target );
+    //set target to find
+    player.target = player.house.head;
+    console.log( "Finding: Professor " + player.target );
 
-    //         //set default location to Great Hall
-    //         player.currentLocation = hogwartsCastle[3];
-    //         console.log( "Current location: " + JSON.stringify(player.currentLocation) );
+    //initialize turn count
+    player.currentTurn = 0;
+    console.log("Turn start!")
+    //generate target turns to complete task
+    //min number of turns is 2
+    player.targetTurn = Math.floor(Math.random()*hogwartsCastle.length/2) + 2;
 
-    //         //initialize turn count
-    //         player.currentTurn = 0;
-    //         console.log("Turn start!")
-    //         //generate target turns to complete task
-    //         //min number of turns is 2
-    //         player.targetTurn = Math.floor(Math.random()*hogwartsCastle.length/2) + 2;
+    //inform player of target & turns
+    var gameStart = document.getElementById("gameStart");
 
-    //         //inform player of target & turns
-    //         input.value = "";
-    //         lastInput = "Enter YES to start";
-    //         input.placeholder = lastInput;
-    //         lastOutput = `Please report to Professor ${player.target} of ${player.house.name} House.\nYou have ${player.targetTurn} turns to complete your task.`;
-    //         return lastOutput;
+    var missionBoard = document.createElement("div");
+    missionBoard.classList.add("row");
 
-    //     //repeat if invalid
-    //     } else {
-    //         input.value = "";
-    //         input.placeholder = lastInput;
-    //         return lastOutput;
-    //     }
+    //show hat image
+    var message1 = document.createElement("div");
+    message1.classList.add("col-6");
 
-    //     break;
+    var hat = document.createElement("img");
+    hat.src = "image/sorting.jpg";
+    hat.classList.add("img-fluid");
+    hat.classList.add("rounded");
+    message1.appendChild(hat);
+    missionBoard.appendChild(message1);
 
-    // //see where player wants to go
-    // case "findProfessor":
-    //     console.log("Currently finding professor");
+    //show mission
+    var message2 = document.createElement("div");
+    message2.classList.add("col-6");
 
-    //     //remove welcome screen
-    //     var hideWelcome = document.getElementById("welcome");
-    //     hideWelcome.classList.add("d-none");
+    var hatName = document.createElement("h3");
+    hatName.innerHTML = `Sorting Hat:`;
+    message2.appendChild(hatName);
 
-    //     //create gameBoard
-    //     createHogwarts();
+    var hatMsg = document.createElement("p");
+    hatMsg.innerHTML = `${player.name}, please report to Professor ${player.target} of ${player.house.name} House.\nYou have ${player.targetTurn} turns to do so.`;
+    message2.appendChild(hatMsg);
 
-    // }
-// }
+    //start game button
+    var button = document.createElement("button");
+    button.type = "button";
+    button.classList.add("btn");
+    button.classList.add("btn-info");
+    button.innerHTML = "Start";
+    button.addEventListener("click", createHogwarts);
+    message2.appendChild(button);
+
+    missionBoard.appendChild(message2);
+
+    gameStart.appendChild(missionBoard);
+
+}
 
 //DOM gameBoard
 function createHogwarts(event) {
+
+    var hideMission = document.getElementById("gameStart");
+    hideMission.classList.add("d-none");
 
     var gameBoard = document.getElementById("hogwarts");
 
@@ -329,7 +305,11 @@ function returnBoard() {
 //check what message to show
 function statement( roomId ) {
 
-    if ( player.target === hogwartsCastle[roomId].professor ) {
+    if ( player.targetsFound >= housesOfHogwarts.length ) {
+
+        return `Please proceed to the Great Hall for the Welcoming Feast.`;
+
+    } else if ( player.target === hogwartsCastle[roomId].professor ) {
 
         console.log("You successfully found Professor " + player.target +"!");
 
@@ -352,6 +332,7 @@ function statement( roomId ) {
             greatHall.removeEventListener("click", revealRoom);
             greatHall.addEventListener("click", welcomeAddress);
             player.target = hogwartsCastle[3].professor
+            console.log(player.target);
             player.currentTurn = true;
             player.targetTurn = true;
             return `Please proceed to the Great Hall for the Welcoming Feast.`;
@@ -367,8 +348,8 @@ function statement( roomId ) {
 
         player.target = toFind.head;
 
+        player.targetTurn = Math.floor(Math.random()*hogwartsCastle.length/2)-player.currentTurn + 2;
         player.currentTurn = 0;
-        player.targetTurn = Math.floor(Math.random()*hogwartsCastle.length/2) + 2;
 
         return `Your attendence is noted. Please proceed to report to Professor ${player.target}.<br>You have ${player.targetTurn} turns to complete your task.`;
 
@@ -381,7 +362,7 @@ function statement( roomId ) {
         //implement page reload
         if ( player.currentTurn === player.targetTurn ) {
 
-            setTimeout( timeTurn, 5000 );
+            setTimeout( timeTurn, 3000 );
 
             return ("Sorry, you are late reporting to Professor " + player.target + " and missed the Welcome Feast.");
 
