@@ -13,8 +13,8 @@ img {
 	margin: 3%;
 }
 
-buttons {
-	width: 50%;
+button {
+	width: fit-content;
 }
 
 #welcome {
@@ -59,4 +59,5 @@ buttons {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
+	align-items: center;
 }
