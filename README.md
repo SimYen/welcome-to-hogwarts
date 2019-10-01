@@ -13,11 +13,9 @@ How to play:
 5. When all House Heads are found, player proceed to the Welcome Feast.
 
 Further:
-- Display player details on screen.
-- Answering a question given by the professor in the room visited correctly will give them a hint.
-- Or they might receive an item that may either:
-  * Make them lose a turn.
-  * Reveal all rooms.
+- Randomize room sequence.
+- Provide hints.
+- Get item to reveal all rooms or randomize room sequence.
 
 Technology:
 - HTML/CSS/Javascript

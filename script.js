@@ -102,6 +102,16 @@ getName.addEventListener('change', function(event) {
         var result = inputHappened(currentInput)
     });
 
+//select mode
+var getMode = document.getElementById("modeSelect");
+getMode.addEventListener("change", setMode);
+
+function setMode() {
+    if ( parseInt(this.value) === 1 ) {
+        player.mode = 1;
+    }
+}
+
 function inputHappened(currentInput) {
 
     var hideWelcome = document.getElementById("welcome")
@@ -121,8 +131,6 @@ function inputHappened(currentInput) {
 
     //add event listener
     var select = document.getElementsByTagName("button");
-    console.log(select);
-
     for ( var i=0; i<select.length; i++ ) {
         select[i].addEventListener("click", mission);
     }
@@ -246,6 +254,8 @@ function createHogwarts() {
     var hideMission = document.getElementById("gameStart");
     hideMission.classList.add("d-none");
 
+    var refreshStats = document.getElementById("dashboard");
+    refreshStats.innerHTML = "";
     stats();
 
     //gameboard
@@ -282,10 +292,8 @@ function createHogwarts() {
 //check if target is found
 //else add 1 turn
 function revealRoom() {
-    console.log(this);
     //show clicked room img
     this.src = hogwartsCastle[this.id].roomImg;
-
     roomScene(this.id);
 
 }
@@ -301,7 +309,6 @@ function roomScene( roomId ) {
         var message = document.getElementById("messageBoard");
 
         //DOM roomScene
-        console.log( "Room ID: " + roomId );
         var roomScene = document.createElement("div");
         roomScene.id = "roomScene";
         roomScene.classList.add("row");
@@ -357,7 +364,7 @@ function returnBoard() {
 
     var showCastle = document.getElementById("hogwarts");
 
-    //for flipped mode
+    //for hard mode
     if ( player.mode === 1 && player.targetsFound < housesOfHogwarts.length ) {
         showCastle.innerHTML = "";
         createHogwarts();
@@ -440,8 +447,8 @@ function statement( roomId ) {
 
 }
 
-//marauder map
-function revealHogwarts() {
+//reveal all rooms
+function marauderMap() {
 
     var message = document.getElementById("messageBoard");
     //clear messageBoard
@@ -483,7 +490,6 @@ function welcomeAddress() {
     //DOM roomScene
     var message = document.getElementById("messageBoard");
 
-    console.log( "Room ID: " + this.id );
     var roomScene = document.createElement("div");
     roomScene.id = "roomScene";
     roomScene.classList.add("row");
