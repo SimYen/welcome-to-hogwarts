@@ -6,6 +6,27 @@ body {
 	background-position: left top;
 	background-size: cover;
 	color: white;
+	font-family: 'Mansalva', cursive;
+}
+
+h1 {
+	font-size: 3.75rem;
+}
+
+h3 {
+	font-size: 2.75rem;
+}
+
+p {
+	font-size: 1.5rem;
+}
+
+input {
+	font-size: 2rem;
+}
+
+select {
+	font-size: 2rem;
 }
 
 img {

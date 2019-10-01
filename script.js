@@ -95,6 +95,11 @@ var hogwartsCastle = [
 //start by crediting copyrights
 alert("This game is based on Ⓒ J.K. Rowling's Wizarding World.\nCredit for images used belongs to their illustrators.");
 
+var bgm = document.getElementById("themeMusic");
+bgm.addEventListener("play", function() {
+    bgm.muted = false;
+});
+
 //get player's name
 var getName = document.getElementById("input");
 getName.addEventListener('change', function(event) {
@@ -126,7 +131,7 @@ function inputHappened(currentInput) {
 
     var getHouse = document.getElementById("whatHouse");
     var askHouse = document.createElement("h1")
-    askHouse.innerHTML = `Hi, ${player.name}. Which House are you in?`;
+    askHouse.innerHTML = `Hi, ${player.name}.<br>Which House are you in?`;
     getHouse.appendChild(askHouse);
 
     //add event listener
@@ -279,6 +284,12 @@ function createHogwarts() {
         room.classList.add("img-fluid");
         room.classList.add("rounded");
         room.addEventListener("click", revealRoom);
+
+        var frog = document.getElementById("chocFrog");
+        room.addEventListener("click", function() {
+            frog.play();
+        });
+
         map.appendChild(room);
 
         castle.appendChild(map);
