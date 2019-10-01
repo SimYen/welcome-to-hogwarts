@@ -9,6 +9,7 @@ body {
 
 img {
 	opacity: 0.9;
+	margin-top: 3%;
 }
 
 #welcome {
@@ -29,6 +30,11 @@ img {
 
 #getStart {
 	margin-top: 5em;
+}
+
+#dashboard {
+	margin-top: 1em;
+	background-color: darkslateblue;
 }
 
 #hogwarts {

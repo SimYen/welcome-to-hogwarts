@@ -12,11 +12,12 @@ var player = {
     name: null,
     house: null,
     target: null,
-    targetsFound: null,
+    targetsFound: 0,
     gameProgress: null,
     currentLocation: null,
     currentTurn: null,
     targetTurn: null,
+    mode: 0     //0: reveal, 1: flipped
 };
 
 //create object of House details
@@ -178,7 +179,7 @@ function mission() {
     message2.appendChild(hatName);
 
     var hatMsg = document.createElement("p");
-    hatMsg.innerHTML = `${player.name}, please report to Professor ${player.target} of ${player.house.name} House.\nYou have ${player.targetTurn} turns to do so.`;
+    hatMsg.innerHTML = `${player.name}, please report to Professor ${player.target} of ${player.house.name} House.<br>You have ${player.targetTurn} turns to do so.`;
     message2.appendChild(hatMsg);
 
     //start game button
@@ -196,12 +197,52 @@ function mission() {
 
 }
 
+//DOM dashboard
+function stats() {
+    var display = document.getElementById("dashboard");
+
+    var dashBoard = document.createElement("div")
+    dashBoard.id = "dashBoard";
+    dashBoard.classList.add("row");
+
+    var displayName = document.createElement("div");
+    displayName.classList.add("col");
+    displayName.innerHTML = `Name:<br>${player.name}`;
+    dashBoard.appendChild(displayName);
+
+    var displayHouse = document.createElement("div");
+    displayHouse.classList.add("col");
+    displayHouse.innerHTML = `House:<br>${player.house.name}`;
+    dashBoard.appendChild(displayHouse);
+
+    var displayProf = document.createElement("div");
+    displayProf.classList.add("col");
+    displayProf.innerHTML = `Now seeking:<br>Professor ${player.target}`;
+    dashBoard.appendChild(displayProf);
+
+    var turnLeft = player.targetTurn - player.currentTurn;
+    var displayTurn = document.createElement("div");
+    displayTurn.classList.add("col");
+    displayTurn.innerHTML = `Turns left:<br>${turnLeft}`;
+    dashBoard.appendChild(displayTurn)
+
+    var headsFound = document.createElement("div");
+    headsFound.classList.add("col");
+    headsFound.innerHTML = `Professors Seen:<br>${player.targetsFound}`;
+    dashBoard.appendChild(headsFound);
+
+    display.appendChild(dashBoard);
+}
+
 //DOM gameBoard
-function createHogwarts(event) {
+function createHogwarts() {
 
     var hideMission = document.getElementById("gameStart");
     hideMission.classList.add("d-none");
 
+    stats();
+
+    //gameboard
     var gameBoard = document.getElementById("hogwarts");
 
     var castle = document.createElement("div");
@@ -211,6 +252,7 @@ function createHogwarts(event) {
     //create castle div to contain room divs
     for ( var i = 0; i < hogwartsCastle.length; i++ ) {
         var map = document.createElement("div");
+        map.classList.add("col-6");
         map.classList.add("col-md-4");
 
         //create display for rooms
@@ -303,6 +345,13 @@ function returnBoard() {
     message.innerHTML = "";
 
     var showCastle = document.getElementById("hogwarts");
+
+    //for flipped mode
+    if ( player.mode === 1 && player.targetsFound < housesOfHogwarts.length ) {
+        showCastle.innerHTML = "";
+        createHogwarts();
+    }
+
     showCastle.classList.remove("d-none");
 }
 
@@ -377,6 +426,42 @@ function statement( roomId ) {
 
         }
     }
+
+}
+
+//marauder map
+function revealHogwarts() {
+
+    var message = document.getElementById("messageBoard");
+    //clear messageBoard
+    message.innerHTML = "";
+
+    var revealBoard = document.getElementById("hogwarts");
+    revealBoard.innerHTML = "";
+
+    var castle = document.createElement("div");
+    castle.id = "hogwartsCastle";
+    castle.classList.add("row");
+
+    //create castle div to contain room divs
+    for ( var i = 0; i < hogwartsCastle.length; i++ ) {
+        var map = document.createElement("div");
+        map.classList.add("col-md-4");
+
+        //create display for rooms
+        //how to reveal Great Hall from the start?
+        var room = document.createElement("img");
+        room.id = i;
+        room.src = hogwartsCastle[i].roomImg;
+        room.classList.add("img-fluid");
+        room.classList.add("rounded");
+        room.addEventListener("click", revealRoom);  //still use revealRoom?
+        map.appendChild(room);
+
+        castle.appendChild(map);
+    }
+
+    revealBoard.appendChild(castle);
 
 }
 

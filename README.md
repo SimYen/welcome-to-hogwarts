@@ -1,5 +1,6 @@
 # welcome-to-hogwarts
 Project #1 | The Game
+URL: https://simyen.github.io/welcome-to-hogwarts/
 
 Objective of game:
  To find your professor within Hogwarts Castle within stated number of turns.
