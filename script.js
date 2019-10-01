@@ -148,7 +148,7 @@ function mission() {
     console.log("Turn start!")
     //generate target turns to complete task
     //min number of turns is 2
-    player.targetTurn = Math.floor(Math.random()*hogwartsCastle.length/2) + 2;
+    player.targetTurn = Math.floor(Math.random()*hogwartsCastle.length/3) + 2;
 
     //inform player of target & turns
     var gameStart = document.getElementById("gameStart");
@@ -158,7 +158,8 @@ function mission() {
 
     //show hat image
     var message1 = document.createElement("div");
-    message1.classList.add("col-6");
+    message1.classList.add("col-12");
+    message1.classList.add("col-md-6");
 
     var hat = document.createElement("img");
     hat.src = "image/sorting.jpg";
@@ -169,7 +170,8 @@ function mission() {
 
     //show mission
     var message2 = document.createElement("div");
-    message2.classList.add("col-6");
+    message2.classList.add("col-12");
+    message2.classList.add("col-md-6");
 
     var hatName = document.createElement("h3");
     hatName.innerHTML = `Sorting Hat:`;
@@ -209,7 +211,8 @@ function createHogwarts(event) {
     //create castle div to contain room divs
     for ( var i = 0; i < hogwartsCastle.length; i++ ) {
         var map = document.createElement("div");
-        map.classList.add("col-4");
+        map.classList.add("col-6");
+        map.classList.add("col-md-4");
 
         //create display for rooms
         //how to reveal Great Hall from the start?
@@ -258,7 +261,8 @@ function roomScene( roomId ) {
 
         //show prof image
         var message1 = document.createElement("div");
-        message1.classList.add("col-6");
+        message1.classList.add("col-12");
+        message1.classList.add("col-md-6");
 
         var profFound = document.createElement("img");
         profFound.src = hogwartsCastle[roomId].profImg;
@@ -269,7 +273,8 @@ function roomScene( roomId ) {
 
         //show msg
         var message2 = document.createElement("div");
-        message2.classList.add("col-6");
+        message2.classList.add("col-12");
+        message2.classList.add("col-md-6");
 
         var profName = document.createElement("h3");
         profName.innerHTML = `Professor ${hogwartsCastle[roomId].professor}:`;
@@ -348,7 +353,8 @@ function statement( roomId ) {
 
         player.target = toFind.head;
 
-        player.targetTurn = Math.floor(Math.random()*hogwartsCastle.length/2)-player.currentTurn + 2;
+        player.targetTurn = Math.floor(Math.random()*(hogwartsCastle.length/5))+2;
+
         player.currentTurn = 0;
 
         return `Your attendence is noted. Please proceed to report to Professor ${player.target}.<br>You have ${player.targetTurn} turns to complete your task.`;
@@ -389,7 +395,8 @@ function welcomeAddress() {
 
     //show prof image
     var message1 = document.createElement("div");
-    message1.classList.add("col-6");
+    message1.classList.add("col-12");
+    message1.classList.add("col-md-6");
 
     var profFound = document.createElement("img");
     profFound.src = hogwartsCastle[this.id].profImg;
@@ -400,7 +407,8 @@ function welcomeAddress() {
 
     //show msg
     var message2 = document.createElement("div");
-    message2.classList.add("col-6");
+    message2.classList.add("col-12");
+    message2.classList.add("col-md-6");
 
     var profName = document.createElement("h3");
     profName.innerHTML = `Professor ${hogwartsCastle[this.id].professor}:`;
@@ -441,7 +449,8 @@ function timeTurn() {
 
     //show time-turner
     var message1 = document.createElement("div");
-    message1.classList.add("col-6");
+    message1.classList.add("col-12");
+    message1.classList.add("col-md-6");
 
     var timeTurner = document.createElement("img");
     timeTurner.src = "image/timeturner.jpg";
@@ -452,7 +461,8 @@ function timeTurn() {
 
     //show msg
     var message2 = document.createElement("div");
-    message2.classList.add("col-6");
+    message2.classList.add("col-12");
+    message2.classList.add("col-md-6");
 
     var itemName = document.createElement("h3");
     itemName.innerHTML = `Time-Turner`;

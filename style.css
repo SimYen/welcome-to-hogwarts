@@ -1,3 +1,16 @@
 body {
 	text-align: center;
+	background-image: url("image/hogwarts-background.png");
+	background-repeat: no-repeat;
+	background-position: left top;
+	background-attachment: fixed;
+	color: white;
+}
+
+img {
+	opacity: 0.9;
+}
+
+#houses {
+	color: black;
 }
