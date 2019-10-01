@@ -173,6 +173,7 @@ function mission() {
     var message2 = document.createElement("div");
     message2.classList.add("col-12");
     message2.classList.add("col-md-6");
+    message2.classList.add("message2");
 
     var hatName = document.createElement("h3");
     hatName.innerHTML = `Sorting Hat:`;
@@ -206,28 +207,33 @@ function stats() {
     dashBoard.classList.add("row");
 
     var displayName = document.createElement("div");
-    displayName.classList.add("col");
+    displayName.classList.add("col-6");
+    displayName.classList.add("col-md");
     displayName.innerHTML = `Name:<br>${player.name}`;
     dashBoard.appendChild(displayName);
 
     var displayHouse = document.createElement("div");
-    displayHouse.classList.add("col");
+    displayHouse.classList.add("col-6");
+    displayHouse.classList.add("col-md");
     displayHouse.innerHTML = `House:<br>${player.house.name}`;
     dashBoard.appendChild(displayHouse);
 
     var displayProf = document.createElement("div");
-    displayProf.classList.add("col");
+    displayProf.classList.add("col-4");
+    displayProf.classList.add("col-md");
     displayProf.innerHTML = `Now seeking:<br>Professor ${player.target}`;
     dashBoard.appendChild(displayProf);
 
     var turnLeft = player.targetTurn - player.currentTurn;
     var displayTurn = document.createElement("div");
-    displayTurn.classList.add("col");
+    displayTurn.classList.add("col-4");
+    displayTurn.classList.add("col-md");
     displayTurn.innerHTML = `Turns left:<br>${turnLeft}`;
     dashBoard.appendChild(displayTurn)
 
     var headsFound = document.createElement("div");
-    headsFound.classList.add("col");
+    headsFound.classList.add("col-4");
+    headsFound.classList.add("col-md");
     headsFound.innerHTML = `Professors Seen:<br>${player.targetsFound}`;
     dashBoard.appendChild(headsFound);
 
@@ -253,7 +259,7 @@ function createHogwarts() {
     for ( var i = 0; i < hogwartsCastle.length; i++ ) {
         var map = document.createElement("div");
         map.classList.add("col-6");
-        map.classList.add("col-md-4");
+        map.classList.add("col-sm-4");
 
         //create display for rooms
         //how to reveal Great Hall from the start?
@@ -316,6 +322,7 @@ function roomScene( roomId ) {
         var message2 = document.createElement("div");
         message2.classList.add("col-12");
         message2.classList.add("col-md-6");
+        message2.classList.add("message2");
 
         var profName = document.createElement("h3");
         profName.innerHTML = `Professor ${hogwartsCastle[roomId].professor}:`;
@@ -497,6 +504,7 @@ function welcomeAddress() {
     var message2 = document.createElement("div");
     message2.classList.add("col-12");
     message2.classList.add("col-md-6");
+    message2.classList.add("message2");
 
     var profName = document.createElement("h3");
     profName.innerHTML = `Professor ${hogwartsCastle[this.id].professor}:`;
@@ -551,6 +559,7 @@ function timeTurn() {
     var message2 = document.createElement("div");
     message2.classList.add("col-12");
     message2.classList.add("col-md-6");
+    message2.classList.add("message2");
 
     var itemName = document.createElement("h3");
     itemName.innerHTML = `Time-Turner`;
