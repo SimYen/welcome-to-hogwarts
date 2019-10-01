@@ -211,7 +211,6 @@ function createHogwarts(event) {
     //create castle div to contain room divs
     for ( var i = 0; i < hogwartsCastle.length; i++ ) {
         var map = document.createElement("div");
-        map.classList.add("col-6");
         map.classList.add("col-md-4");
 
         //create display for rooms

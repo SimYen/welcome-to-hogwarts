@@ -11,6 +11,31 @@ img {
 	opacity: 0.9;
 }
 
+#welcome {
+	margin-top: 5em;
+}
+
+#getHouse {
+	margin-top: 5em;
+}
+
+#gameStart {
+	margin-top: 5em;
+}
+
 #houses {
 	color: black;
+}
+
+#getStart {
+	margin-top: 5em;
+}
+
+#hogwarts {
+	margin-top: 5em;
+	width: 50%;
+}
+
+#messageBoard {
+	margin-top: 5em;
 }
