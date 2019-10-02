@@ -50,10 +50,6 @@ button {
 	margin-top: 5em;
 }
 
-#dashboard {
-	margin-top: 5em;
-}
-
 #houses {
 	color: black;
 }
@@ -74,6 +70,10 @@ button {
 
 #messageBoard {
 	margin-top: 5em;
+}
+
+#themeMusic {
+	opacity: 0.25;
 }
 
 .message2 {

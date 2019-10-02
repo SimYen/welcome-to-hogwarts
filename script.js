@@ -128,6 +128,9 @@ getMode.addEventListener("change", setMode);
 function setMode() {
     if ( parseInt(this.value) === 1 ) {
         player.mode = 1;
+        document.body.style.backgroundImage = "url('image/minalima-map.jpg')";
+        var dashColor = document.getElementById("dashboard");
+        dashColor.style.backgroundColor = "darkolivegreen";
     }
 }
 
@@ -493,6 +496,9 @@ function marauderMap() {
     var message = document.getElementById("messageBoard");
     //clear messageBoard
     message.innerHTML = "";
+
+    var dashColor = document.getElementById("dashboard");
+    dashColor.style.backgroundColor = "saddlebrown";
 
     var revealBoard = document.getElementById("hogwarts");
     revealBoard.innerHTML = "";
