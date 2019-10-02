@@ -13,9 +13,10 @@ How to play:
 5. When all House Heads are found, player proceed to the Welcome Feast.
 
 Further:
+- Get item to reveal all rooms or randomize room sequence.
 - Randomize room sequence.
 - Provide hints.
-- Get item to reveal all rooms or randomize room sequence.
+
 
 Technology:
 - HTML/CSS/Javascript
