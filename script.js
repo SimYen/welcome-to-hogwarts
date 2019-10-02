@@ -91,6 +91,10 @@ var hogwartsCastle = [
     }
 ]
 
+//array of student images
+var students = [
+    "image/",
+]
 
 //start by crediting copyrights
 alert("This game is based on Ⓒ J.K. Rowling's Wizarding World.\nCredit for images used belongs to their illustrators.");
@@ -467,6 +471,8 @@ function marauderMap() {
 
     var revealBoard = document.getElementById("hogwarts");
     revealBoard.innerHTML = "";
+
+    document.body.style.backgroundImage = "url('image/marauders-map-wallpaper2.jpg')";
 
     var castle = document.createElement("div");
     castle.id = "hogwartsCastle";
