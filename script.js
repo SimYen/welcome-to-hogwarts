@@ -421,6 +421,9 @@ function returnBoard() {
     //for hard mode
     if ( player.mode === 1 && player.targetsFound < housesOfHogwarts.length ) {
         showCastle.innerHTML = "";
+        document.body.style.backgroundImage = "url('image/minalima-map.jpg')";
+        var dashColor = document.getElementById("dashboard");
+        dashColor.style.backgroundColor = "darkolivegreen";
         createHogwarts();
     }
 
