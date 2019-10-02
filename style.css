@@ -31,7 +31,7 @@ select {
 
 img {
 	opacity: 0.9;
-	margin: 3%;
+	margin: 3% 0;
 }
 
 button {
