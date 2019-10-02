@@ -93,7 +93,17 @@ var hogwartsCastle = [
 
 //array of student images
 var students = [
-    "image/",
+    "image/gryffindorstudent.jpeg",
+    "image/gryffindorstudent1.png",
+    "image/hufflepuffstudent.jpg",
+    "image/hufflepuffstudent1.jpg",
+    "image/ravenclawstudent.jpg",
+    "image/ravenclawstudent1.jpg",
+    "image/ravenclawstudent2.jpeg",
+    "image/ravenclawstudent3.png",
+    "image/slytherinstudent.jpg",
+    "image/slytherinstudent1.jpg",
+    "image/slytherinstudent2.png"
 ]
 
 //start by crediting copyrights
@@ -280,8 +290,22 @@ function createHogwarts() {
         map.classList.add("col-6");
         map.classList.add("col-sm-4");
 
+    //for hard mode
+    if ( player.mode === 1 && player.targetsFound < housesOfHogwarts.length ) {
+        var room = document.createElement("img");
+        room.id = i;
+        room.src = students[Math.floor(Math.random()*students.length)];
+        room.classList.add("img-fluid");
+        room.classList.add("rounded");
+        room.addEventListener("click", revealRoom);
+
+        var frog = document.getElementById("chocFrog");
+        room.addEventListener("click", function() {
+            frog.play();
+        });
+    } else {
+
         //create display for rooms
-        //how to reveal Great Hall from the start?
         var room = document.createElement("img");
         room.id = i;
         room.src = "image/chocfrog.jpg";
@@ -293,6 +317,7 @@ function createHogwarts() {
         room.addEventListener("click", function() {
             frog.play();
         });
+    }
 
         map.appendChild(room);
 
