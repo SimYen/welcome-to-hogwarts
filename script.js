@@ -287,6 +287,16 @@ function createHogwarts() {
     castle.id = "hogwartsCastle";
     castle.classList.add("row");
 
+    //randomizer (without recurrence)
+    var randomRm = [];
+    while ( randomRm.length < hogwartsCastle.length ) {
+        var x = Math.floor(Math.random()*hogwartsCastle.length);
+        if (randomRm.includes(x) === false) {
+            randomRm.push(x)
+        }
+    }
+    console.log(randomRm);
+
     //create castle div to contain room divs
     for ( var i = 0; i < hogwartsCastle.length; i++ ) {
         var map = document.createElement("div");
@@ -296,7 +306,8 @@ function createHogwarts() {
     //for hard mode
     if ( player.mode === 1 && player.targetsFound < housesOfHogwarts.length ) {
         var room = document.createElement("img");
-        room.id = i;
+
+        room.id = randomRm[i];
         room.src = students[Math.floor(Math.random()*students.length)];
         room.classList.add("img-fluid");
         room.classList.add("rounded");
@@ -505,29 +516,69 @@ function marauderMap() {
 
     document.body.style.backgroundImage = "url('image/marauders-map-wallpaper2.jpg')";
 
+    var refreshStats = document.getElementById("dashboard");
+    refreshStats.innerHTML = "";
+    stats();
+
+    //gameboard
+    var gameBoard = document.getElementById("hogwarts");
+
     var castle = document.createElement("div");
     castle.id = "hogwartsCastle";
     castle.classList.add("row");
 
+    //randomizer (without recurrence)
+    var randomRm = [];
+    while ( randomRm.length < hogwartsCastle.length ) {
+        var x = Math.floor(Math.random()*hogwartsCastle.length);
+        if (randomRm.includes(x) === false) {
+            randomRm.push(x)
+        }
+    }
+    console.log(randomRm);
+
     //create castle div to contain room divs
     for ( var i = 0; i < hogwartsCastle.length; i++ ) {
         var map = document.createElement("div");
-        map.classList.add("col-md-4");
+        map.classList.add("col-6");
+        map.classList.add("col-sm-4");
+
+    //for hard mode
+    if ( player.mode === 1 && player.targetsFound < housesOfHogwarts.length ) {
+        var room = document.createElement("img");
+
+        room.id = randomRm[i];
+        room.src = hogwartsCastle[randomRm[i]].roomImg;
+        room.classList.add("img-fluid");
+        room.classList.add("rounded");
+        room.addEventListener("click", revealRoom);
+
+        var frog = document.getElementById("chocFrog");
+        room.addEventListener("click", function() {
+            frog.play();
+        });
+    } else {
 
         //create display for rooms
-        //how to reveal Great Hall from the start?
         var room = document.createElement("img");
         room.id = i;
         room.src = hogwartsCastle[i].roomImg;
         room.classList.add("img-fluid");
         room.classList.add("rounded");
-        room.addEventListener("click", revealRoom);  //still use revealRoom?
+        room.addEventListener("click", revealRoom);
+
+        var frog = document.getElementById("chocFrog");
+        room.addEventListener("click", function() {
+            frog.play();
+        });
+    }
+
         map.appendChild(room);
 
         castle.appendChild(map);
     }
 
-    revealBoard.appendChild(castle);
+    gameBoard.appendChild(castle);
 
 }
 
